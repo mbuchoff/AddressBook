@@ -55,6 +55,14 @@ namespace AddressBook
                 endpoints.MapRazorPages();
                 endpoints.MapGet("/", context => Task.Run(() => context.Response.Redirect("Scaffolded")));
             });
+
+            using (var scope = app.ApplicationServices.CreateScope())
+            {
+                using (var db = scope.ServiceProvider.GetRequiredService<AddressBookContext>())
+                {
+                    db.Database.EnsureCreated();
+                }
+            }
         }
     }
 }
