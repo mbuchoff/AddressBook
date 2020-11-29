@@ -25,9 +25,13 @@ namespace DbSchema.Migrations
                 nullable: true,
                 defaultValue: "");
 
-            migrationBuilder.Sql("UPDATE People SET " +
-                "People.FirstName = (SELECT TOP 1 value FROM STRING_SPLIT(People.Name, ' '))," +
-	            "People.LastName = LTRIM(SUBSTRING(People.Name, LEN(People.FirstName) + 1, LEN(People.Name)))");
+            migrationBuilder.Sql(
+@"DECLARE @firstName nvarchar(MAX)
+
+UPDATE People SET
+    @firstName = (SELECT TOP 1 value FROM STRING_SPLIT(People.Name, ' ')),
+    People.FirstName = @firstName,
+	People.LastName = LTRIM(SUBSTRING(People.Name, LEN(@firstName) + 1, LEN(People.Name)))");
 
             migrationBuilder.DropColumn(
                 name: "Name",
