@@ -60,7 +60,7 @@ namespace AddressBook
             {
                 using (var db = scope.ServiceProvider.GetRequiredService<AddressBookContext>())
                 {
-                    db.Database.EnsureCreated();
+                    db.Database.Migrate();
                 }
             }
         }
