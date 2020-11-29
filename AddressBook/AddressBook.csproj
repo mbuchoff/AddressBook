@@ -22,4 +22,8 @@
     <ProjectReference Include="..\DbSchema\DbSchema.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Pages\Scaffolded\" />
+  </ItemGroup>
+
 </Project>
