@@ -29,9 +29,10 @@ namespace DbSchema.Migrations
 @"DECLARE @firstName nvarchar(MAX)
 
 UPDATE People SET
-    @firstName = ISNULL((SELECT TOP 1 value FROM STRING_SPLIT(People.Name, ' ')), ''),
-    People.FirstName = @firstName,
-	People.LastName = LTRIM(SUBSTRING(People.Name, LEN(@firstName) + 1, LEN(People.Name)))");
+    @firstName = (SELECT TOP 1 value FROM STRING_SPLIT(People.Name, ' ')),
+    @lastName = LTRIM(SUBSTRING(People.Name, LEN(@firstName) + 1, LEN(People.Name))),
+    People.FirstName = ISNULL(@firstName, ''),
+	People.LastName = ISNULL(@lastName, '')");
 
             migrationBuilder.DropColumn(
                 name: "Name",
