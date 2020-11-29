@@ -12,21 +12,22 @@ namespace DbSchema.Migrations
                 newName: "PhoneNumber");
 
             migrationBuilder.AddColumn<string>(
-                name: "LastName",
-                table: "People",
-                type: "nvarchar(max)",
-                nullable: true,
-                defaultValue: "");
-
-            migrationBuilder.AddColumn<string>(
                 name: "FirstName",
                 table: "People",
                 type: "nvarchar(max)",
-                nullable: true,
+                nullable: false,
+                defaultValue: "");
+
+            migrationBuilder.AddColumn<string>(
+                name: "LastName",
+                table: "People",
+                type: "nvarchar(max)",
+                nullable: false,
                 defaultValue: "");
 
             migrationBuilder.Sql(
 @"DECLARE @firstName nvarchar(MAX)
+DECLARE @lastName nvarchar(MAX)
 
 UPDATE People SET
     @firstName = (SELECT TOP 1 value FROM STRING_SPLIT(People.Name, ' ')),
