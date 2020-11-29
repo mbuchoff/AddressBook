@@ -29,7 +29,7 @@ namespace DbSchema.Migrations
 @"DECLARE @firstName nvarchar(MAX)
 
 UPDATE People SET
-    @firstName = (SELECT TOP 1 value FROM STRING_SPLIT(People.Name, ' ')),
+    @firstName = ISNULL((SELECT TOP 1 value FROM STRING_SPLIT(People.Name, ' ')), ''),
     People.FirstName = @firstName,
 	People.LastName = LTRIM(SUBSTRING(People.Name, LEN(@firstName) + 1, LEN(People.Name)))");
 
