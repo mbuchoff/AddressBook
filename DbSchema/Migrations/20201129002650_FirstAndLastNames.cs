@@ -14,13 +14,16 @@ namespace DbSchema.Migrations
             migrationBuilder.AddColumn<string>(
                 name: "LastName",
                 table: "People",
-                type: "nvarchar(max)");
+                type: "nvarchar(max)",
+                nullable: true,
+                defaultValue: "");
 
             migrationBuilder.AddColumn<string>(
                 name: "FirstName",
                 table: "People",
                 type: "nvarchar(max)",
-                nullable: true);
+                nullable: true,
+                defaultValue: "");
 
             migrationBuilder.Sql("UPDATE People SET " +
                 "People.FirstName = (SELECT TOP 1 value FROM STRING_SPLIT(People.Name, ' '))," +
